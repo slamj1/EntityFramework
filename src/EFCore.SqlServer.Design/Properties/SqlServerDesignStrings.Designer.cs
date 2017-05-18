@@ -23,11 +23,11 @@ namespace Microsoft.EntityFrameworkCore.Internal
         /// </summary>
         public static readonly EventDefinition<string, string> LogDataTypeDoesNotAllowSqlServerIdentityStrategy
             = new EventDefinition<string, string>(
-                SqlServerDesignEventId.DataTypeDoesNotAllowSqlServerIdentityStrategyWarning,
+                SqlServerEventId.DataTypeDoesNotAllowSqlServerIdentityStrategyWarning,
                 LogLevel.Warning,
                 LoggerMessage.Define<string, string>(
                     LogLevel.Warning,
-                    SqlServerDesignEventId.DataTypeDoesNotAllowSqlServerIdentityStrategyWarning,
+                    SqlServerEventId.DataTypeDoesNotAllowSqlServerIdentityStrategyWarning,
                     _resourceManager.GetString("LogDataTypeDoesNotAllowSqlServerIdentityStrategy")));
 
         /// <summary>
@@ -35,11 +35,11 @@ namespace Microsoft.EntityFrameworkCore.Internal
         /// </summary>
         public static readonly EventDefinition<string> LogFoundDefaultSchema
             = new EventDefinition<string>(
-                SqlServerDesignEventId.DefaultSchemaFound,
+                SqlServerEventId.DefaultSchemaFound,
                 LogLevel.Debug,
                 LoggerMessage.Define<string>(
                     LogLevel.Debug,
-                    SqlServerDesignEventId.DefaultSchemaFound,
+                    SqlServerEventId.DefaultSchemaFound,
                     _resourceManager.GetString("LogFoundDefaultSchema")));
 
         /// <summary>
@@ -47,11 +47,11 @@ namespace Microsoft.EntityFrameworkCore.Internal
         /// </summary>
         public static readonly EventDefinition<string, string> LogFoundTypeAlias
             = new EventDefinition<string, string>(
-                SqlServerDesignEventId.TypeAliasFound,
+                SqlServerEventId.TypeAliasFound,
                 LogLevel.Debug,
                 LoggerMessage.Define<string, string>(
                     LogLevel.Debug,
-                    SqlServerDesignEventId.TypeAliasFound,
+                    SqlServerEventId.TypeAliasFound,
                     _resourceManager.GetString("LogFoundTypeAlias")));
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Microsoft.EntityFrameworkCore.Internal
         /// </summary>
         public static readonly RawEventDefinition LogFoundColumn
             = new RawEventDefinition(
-                SqlServerDesignEventId.ColumnFound,
+                SqlServerEventId.ColumnFound,
                 LogLevel.Debug,
                 _resourceManager.GetString("LogFoundColumn"));
 
@@ -68,7 +68,7 @@ namespace Microsoft.EntityFrameworkCore.Internal
         /// </summary>
         public static readonly RawEventDefinition LogFoundForeignKeyColumn
             = new RawEventDefinition(
-                SqlServerDesignEventId.ForeignKeyColumnFound,
+                SqlServerEventId.ForeignKeyColumnFound,
                 LogLevel.Debug,
                 _resourceManager.GetString("LogFoundForeignKeyColumn"));
 

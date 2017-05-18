@@ -25,7 +25,14 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
         {
             // Model validation events
             DecimalTypeDefaultWarning = CoreEventId.ProviderBaseId,
-            ByteIdentityColumnWarning
+            ByteIdentityColumnWarning,
+
+            // Scaffolding events
+            ColumnFound = CoreEventId.ProviderBaseId + 100,
+            ForeignKeyColumnFound,
+            DefaultSchemaFound,
+            TypeAliasFound,
+            DataTypeDoesNotAllowSqlServerIdentityStrategyWarning
         }
 
         private static readonly string _validationPrefix = LoggerCategory.Model.Validation.Name + ".";
@@ -42,5 +49,38 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
         ///     This event is in the <see cref="LoggerCategory.Model.Validation" /> category.
         /// </summary>
         public static readonly EventId ByteIdentityColumnWarning = MakeValidationId(Id.ByteIdentityColumnWarning);
+
+        private static readonly string _scaffoldingPrefix = LoggerCategory.Scaffolding.Name + ".";
+        private static EventId MakeScaffoldingId(Id id) => new EventId((int)id, _scaffoldingPrefix + id);
+
+        /// <summary>
+        ///     A column was found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId ColumnFound = MakeScaffoldingId(Id.ColumnFound);
+
+        /// <summary>
+        ///     A column of a foreign key was found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId ForeignKeyColumnFound = MakeScaffoldingId(Id.ForeignKeyColumnFound);
+
+        /// <summary>
+        ///     A default schema was found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId DefaultSchemaFound = MakeScaffoldingId(Id.DefaultSchemaFound);
+
+        /// <summary>
+        ///     A type alias was found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId TypeAliasFound = MakeScaffoldingId(Id.TypeAliasFound);
+
+        /// <summary>
+        ///     The data type does not support the SQL Server identity strategy.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId DataTypeDoesNotAllowSqlServerIdentityStrategyWarning = MakeScaffoldingId(Id.DataTypeDoesNotAllowSqlServerIdentityStrategyWarning);
     }
 }

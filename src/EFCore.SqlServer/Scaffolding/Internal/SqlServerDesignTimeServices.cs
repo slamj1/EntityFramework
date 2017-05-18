@@ -22,7 +22,6 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
         /// </summary>
         public virtual void ConfigureDesignTimeServices(IServiceCollection serviceCollection)
             => serviceCollection
-                .AddSingleton<IScaffoldingModelFactory, SqlServerScaffoldingModelFactory>()
                 .AddSingleton<IRelationalAnnotationProvider, SqlServerAnnotationProvider>()
                 .AddSingleton<IRelationalTypeMapper, SqlServerTypeMapper>()
                 .AddSingleton<IDatabaseModelFactory, SqlServerDatabaseModelFactory>();

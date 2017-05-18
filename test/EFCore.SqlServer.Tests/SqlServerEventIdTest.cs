@@ -23,6 +23,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Tests
 
             var fakeFactories = new Dictionary<Type, Func<object>>
             {
+                { typeof(string), () => "Fake" },
                 { typeof(IProperty), () => property }
             };
 

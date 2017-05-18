@@ -810,6 +810,171 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     RelationalEventId.TableSkipped,
                     _resourceManager.GetString("LogTableNotInSelectionSet")));
 
+        /// <summary>
+        ///     Found a column on foreign key {tableName}.{fkName} with an empty or null name. Not including column in foreign key
+        /// </summary>
+        public static readonly EventDefinition<string, string> LogColumnNameEmptyOnForeignKey
+            = new EventDefinition<string, string>(
+                RelationalEventId.ForeignKeyColumnNotNamedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyColumnNotNamedWarning,
+                    _resourceManager.GetString("LogColumnNameEmptyOnForeignKey")));
+
+        /// <summary>
+        ///     Found a column on table {tableName} with an empty or null name. Skipping column.
+        /// </summary>
+        public static readonly EventDefinition<string> LogColumnNameEmptyOnTable
+            = new EventDefinition<string>(
+                RelationalEventId.ColumnNotNamedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ColumnNotNamedWarning,
+                    _resourceManager.GetString("LogColumnNameEmptyOnTable")));
+
+        /// <summary>
+        ///     Column {columnName} belongs to table {tableName} which is not included in the selection set. Skipping.
+        /// </summary>
+        public static readonly EventDefinition<string, string> LogColumnNotInSelectionSet
+            = new EventDefinition<string, string>(
+                RelationalEventId.ColumnSkipped,
+                LogLevel.Debug,
+                LoggerMessage.Define<string, string>(
+                    LogLevel.Debug,
+                    RelationalEventId.ColumnSkipped,
+                    _resourceManager.GetString("LogColumnNotInSelectionSet")));
+
+        /// <summary>
+        ///     Foreign key column {columnName} belongs to foreign key {fkName} on table {tableName} which is not included in the selection set. Skipping.
+        /// </summary>
+        public static readonly EventDefinition<string, string, string> LogForeignKeyColumnNotInSelectionSet
+            = new EventDefinition<string, string, string>(
+                RelationalEventId.ForeignKeyColumnMissingWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyColumnMissingWarning,
+                    _resourceManager.GetString("LogForeignKeyColumnNotInSelectionSet")));
+
+        /// <summary>
+        ///     Found a foreign key on table {tableName} with an empty or null name. Skipping foreign key.
+        /// </summary>
+        public static readonly EventDefinition<string> LogForeignKeyNameEmpty
+            = new EventDefinition<string>(
+                RelationalEventId.ForeignKeyNotNamedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyNotNamedWarning,
+                    _resourceManager.GetString("LogForeignKeyNameEmpty")));
+
+        /// <summary>
+        ///     Could not scaffold the foreign key '{foreignKeyName}'.  The following columns in the foreign key could not be scaffolded: {columnNames}.
+        /// </summary>
+        public static readonly EventDefinition<string, string> LogForeignKeyScaffoldErrorPropertyNotFound
+            = new EventDefinition<string, string>(
+                RelationalEventId.ForeignKeyColumnsNotMappedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyColumnsNotMappedWarning,
+                    _resourceManager.GetString("LogForeignKeyScaffoldErrorPropertyNotFound")));
+
+        /// <summary>
+        ///     Found sequence name: {name}, data type: {dataType}, cyclic: {isCyclic}, increment: {increment}, start: {start}, minimum: {min}, maximum: {max}.
+        /// </summary>
+        public static readonly RawEventDefinition LogFoundSequence
+            = new RawEventDefinition(
+                RelationalEventId.SequenceFound,
+                LogLevel.Debug,
+                _resourceManager.GetString("LogFoundSequence"));
+
+        /// <summary>
+        ///     Index column {columnName} belongs to index {indexName} on table {tableName} which is not included in the selection set. Skipping.
+        /// </summary>
+        public static readonly EventDefinition<string, string, string> LogIndexColumnNotInSelectionSet
+            = new EventDefinition<string, string, string>(
+                RelationalEventId.IndexColumnSkipped,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.IndexColumnSkipped,
+                    _resourceManager.GetString("LogIndexColumnNotInSelectionSet")));
+
+        /// <summary>
+        ///     Found an index on table {tableName} with an empty or null name. Skipping index.
+        /// </summary>
+        public static readonly EventDefinition<string> LogIndexNameEmpty
+            = new EventDefinition<string>(
+                RelationalEventId.IndexNotNamedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string>(
+                    LogLevel.Warning,
+                    RelationalEventId.IndexNotNamedWarning,
+                    _resourceManager.GetString("LogIndexNameEmpty")));
+
+        /// <summary>
+        ///     Unable to find a table in the database matching the selected table {table}.
+        /// </summary>
+        public static readonly EventDefinition<string> LogMissingTable
+            = new EventDefinition<string>(
+                RelationalEventId.MissingTableWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string>(
+                    LogLevel.Warning,
+                    RelationalEventId.MissingTableWarning,
+                    _resourceManager.GetString("LogMissingTable")));
+
+        /// <summary>
+        ///     For foreign key {fkName} on table {tableName}, unable to model the end of the foreign key on principal table {principaltableName}. This is usually because the principal table was not included in the selection set.
+        /// </summary>
+        public static readonly EventDefinition<string, string, string> LogPrincipalTableNotInSelectionSet
+            = new EventDefinition<string, string, string>(
+                RelationalEventId.ForeignKeyReferencesMissingPrincipalTableWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyReferencesMissingPrincipalTableWarning,
+                    _resourceManager.GetString("LogPrincipalTableNotInSelectionSet")));
+
+        /// <summary>
+        ///     Sequence name cannot be null or empty. Entity Framework cannot model a sequence that does not have a name.
+        /// </summary>
+        public static readonly EventDefinition LogSequencesRequireName
+            = new EventDefinition(
+                RelationalEventId.SequenceNotNamedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define(
+                    LogLevel.Warning,
+                    RelationalEventId.SequenceNotNamedWarning,
+                    _resourceManager.GetString("LogSequencesRequireName")));
+
+        /// <summary>
+        ///     For index {indexName}. Unable to find parent table {tableName}. Skipping index.
+        /// </summary>
+        public static readonly EventDefinition<string, string> LogUnableToFindTableForIndex
+            = new EventDefinition<string, string>(
+                RelationalEventId.IndexTableMissingWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.IndexTableMissingWarning,
+                    _resourceManager.GetString("LogUnableToFindTableForIndex")));
+
+        /// <summary>
+        ///     Unable to scaffold the index '{indexName}'. The following columns could not be scaffolded: {columnNames}.
+        /// </summary>
+        public static readonly EventDefinition<string, string> LogUnableToScaffoldIndexMissingProperty
+            = new EventDefinition<string, string>(
+                RelationalEventId.IndexColumnsNotMappedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.IndexColumnsNotMappedWarning,
+                    _resourceManager.GetString("LogUnableToScaffoldIndexMissingProperty")));
+
         private static string GetString(string name, params string[] formatterNames)
         {
             var value = _resourceManager.GetString(name);

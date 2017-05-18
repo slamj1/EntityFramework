@@ -1,9 +1,11 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.EntityFrameworkCore.Internal
@@ -12,9 +14,111 @@ namespace Microsoft.EntityFrameworkCore.Internal
     ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
     ///     directly from your code. This API may change or be removed in future releases.
     /// </summary>
-    public static class SqlServerDesignLoggerExtensions
+    public static class SqlServerLoggerExtensions
     {
         /// <summary>
+        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
+        public static void DecimalTypeDefaultWarning(
+            [NotNull] this IDiagnosticsLogger<LoggerCategory.Model.Validation> diagnostics,
+            [NotNull] IProperty property)
+        {
+            var definition = SqlServerStrings.LogDefaultDecimalTypeColumn;
+
+            // Checking for enabled here to avoid string formatting if not needed.
+            if (diagnostics.GetLogBehavior(definition.EventId, definition.Level) != WarningBehavior.Ignore)
+            {
+                definition.Log(diagnostics, property.Name, property.DeclaringEntityType.DisplayName());
+            }
+
+            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
+            {
+                diagnostics.DiagnosticSource.Write(
+                    definition.EventId.Name,
+                    new
+                    {
+                        Property = property
+                    });
+            }
+        }
+
+        /// <summary>
+        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
+        public static void ByteIdentityColumnWarning(
+            [NotNull] this IDiagnosticsLogger<LoggerCategory.Model.Validation> diagnostics,
+            [NotNull] IProperty property)
+        {
+            var definition = SqlServerStrings.LogByteIdentityColumn;
+
+            // Checking for enabled here to avoid string formatting if not needed.
+            if (diagnostics.GetLogBehavior(definition.EventId, definition.Level) != WarningBehavior.Ignore)
+            {
+                definition.Log(diagnostics, property.Name, property.DeclaringEntityType.DisplayName());
+            }
+
+            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
+            {
+                diagnostics.DiagnosticSource.Write(
+                    definition.EventId.Name,
+                    new
+                    {
+                        Property = property
+                    });
+            }
+        }
+
+
+
+        /// <summary>
+        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
+        public static void DefaultSchemaFound(
+            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
+            [CanBeNull] string schemaName)
+        {
+            var definition = SqlServerStrings.LogFoundDefaultSchema;
+
+            definition.Log(diagnostics, schemaName);
+
+            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
+            {
+                diagnostics.DiagnosticSource.Write(
+                    definition.EventId.Name,
+                    new
+                    {
+                        SchemaName = schemaName
+                    });
+            }
+        }
+
+        /// <summary>
+        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
+        public static void TypeAliasFound(
+            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
+            [CanBeNull] string typeAliasName,
+            [CanBeNull] string systemTypeName)
+        {
+            var definition = SqlServerStrings.LogFoundTypeAlias;
+
+            definition.Log(diagnostics, typeAliasName, systemTypeName);
+
+            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
+            {
+                diagnostics.DiagnosticSource.Write(
+                    definition.EventId.Name,
+                    new
+                    {
+                        TypeAliasName = typeAliasName,
+                        SystemTypeName = systemTypeName
+                    });
+            }
+        }/// <summary>
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
@@ -34,7 +138,7 @@ namespace Microsoft.EntityFrameworkCore.Internal
             [CanBeNull] bool? identity,
             [CanBeNull] bool? computed)
         {
-            var definition = SqlServerDesignStrings.LogFoundColumn;
+            var definition = SqlServerStrings.LogFoundColumn;
 
             Debug.Assert(LogLevel.Debug == definition.Level);
 
@@ -99,7 +203,7 @@ namespace Microsoft.EntityFrameworkCore.Internal
             [CanBeNull] string deleteAction,
             int? ordinal)
         {
-            var definition = SqlServerDesignStrings.LogFoundForeignKeyColumn;
+            var definition = SqlServerStrings.LogFoundForeignKeyColumn;
 
             Debug.Assert(LogLevel.Debug == definition.Level);
 
@@ -143,60 +247,12 @@ namespace Microsoft.EntityFrameworkCore.Internal
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public static void DefaultSchemaFound(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string schemaName)
-        {
-            var definition = SqlServerDesignStrings.LogFoundDefaultSchema;
-
-            definition.Log(diagnostics, schemaName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        SchemaName = schemaName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public static void TypeAliasFound(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string typeAliasName,
-            [CanBeNull] string systemTypeName)
-        {
-            var definition = SqlServerDesignStrings.LogFoundTypeAlias;
-
-            definition.Log(diagnostics, typeAliasName, systemTypeName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        TypeAliasName = typeAliasName,
-                        SystemTypeName = systemTypeName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public static void DataTypeDoesNotAllowSqlServerIdentityStrategyWarning(
             [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
             [CanBeNull] string columnName,
             [CanBeNull] string typeName)
         {
-            var definition = SqlServerDesignStrings.LogDataTypeDoesNotAllowSqlServerIdentityStrategy;
+            var definition = SqlServerStrings.LogDataTypeDoesNotAllowSqlServerIdentityStrategy;
 
             definition.Log(diagnostics, columnName, typeName);
 
