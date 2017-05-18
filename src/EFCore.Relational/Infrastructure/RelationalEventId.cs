@@ -60,7 +60,18 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
             QueryPossibleUnintendedUseOfEqualsWarning,
 
             // Model validation events
-            ModelValidationKeyDefaultValueWarning = CoreEventId.RelationalBaseId + 600
+            ModelValidationKeyDefaultValueWarning = CoreEventId.RelationalBaseId + 600,
+
+            // Scaffolding warning events
+            ForeignKeyReferencesMissingTableWarning = CoreEventId.RelationalBaseId + 700,
+            ForeignKeyPrincipalColumnMissingWarning,
+            IndexColumnNotNamedWarning,
+
+            //// Scaffolding events
+            TableFound = CoreEventId.RelationalBaseId + 800,
+            TableSkipped,
+            IndexFound,
+            IndexColumnFound,
         }
 
         private static readonly string _connectionPrefix = LoggerCategory.Database.Connection.Name + ".";
@@ -386,5 +397,50 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
         ///     </para>
         /// </summary>
         public static readonly EventId ModelValidationKeyDefaultValueWarning = MakeValidationId(Id.ModelValidationKeyDefaultValueWarning);
+
+        private static readonly string _scaffoldingPrefix = LoggerCategory.Scaffolding.Name + ".";
+        private static EventId MakeScaffoldingId(Id id) => new EventId((int)id, _scaffoldingPrefix + id);
+
+        /// <summary>
+        ///     A foreign key references a missing table.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId ForeignKeyReferencesMissingTableWarning = MakeScaffoldingId(Id.ForeignKeyReferencesMissingTableWarning);
+
+        /// <summary>
+        ///     A column referenced by a foreign key constraint was not found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId ForeignKeyPrincipalColumnMissingWarning = MakeScaffoldingId(Id.ForeignKeyPrincipalColumnMissingWarning);
+
+        /// <summary>
+        ///     An index column was not named.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId IndexColumnNotNamedWarning = MakeScaffoldingId(Id.IndexColumnNotNamedWarning);
+
+        /// <summary>
+        ///     A table was found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId TableFound = MakeScaffoldingId(Id.TableFound);
+
+        /// <summary>
+        ///     A table was skipped.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId TableSkipped = MakeScaffoldingId(Id.TableSkipped);
+
+        /// <summary>
+        ///     An index was found.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId IndexFound = MakeScaffoldingId(Id.IndexFound);
+
+        /// <summary>
+        ///     An index was skipped.
+        ///     This event is in the <see cref="LoggerCategory.Scaffolding" /> category.
+        /// </summary>
+        public static readonly EventId IndexColumnFound = MakeScaffoldingId(Id.IndexColumnFound);
     }
 }

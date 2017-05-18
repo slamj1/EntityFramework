@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -21,7 +22,7 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
     ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
     ///     directly from your code. This API may change or be removed in future releases.
     /// </summary>
-    public class SqliteDatabaseModelFactory : IInternalDatabaseModelFactory
+    public class SqliteDatabaseModelFactory : IDatabaseModelFactory
     {
         /// <summary>
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
@@ -67,6 +68,16 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
             Check.NotEmpty(connectionString, nameof(connectionString));
             Check.NotNull(tableSelectionSet, nameof(tableSelectionSet));
 
+            if (tableSelectionSet.Schemas.Any())
+            {
+                Logger.SchemasNotSupportedWarning();
+
+                // we've logged a general warning above that sqlite ignores all
+                // schema selections so mark all of them as matched so that we don't
+                // also log warnings about not matching each individual selection
+                tableSelectionSet.Schemas.ToList().ForEach(s => s.IsMatched = true);
+            }
+
             using (var connection = new SqliteConnection(connectionString))
             {
                 return Create(connection, tableSelectionSet);
@@ -77,7 +88,7 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public virtual DatabaseModel Create(DbConnection connection, TableSelectionSet tableSelectionSet)
+        private DatabaseModel Create(DbConnection connection, TableSelectionSet tableSelectionSet)
         {
             ResetState();
 

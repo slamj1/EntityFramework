@@ -22,7 +22,6 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
         /// </summary>
         public virtual void ConfigureDesignTimeServices(IServiceCollection serviceCollection)
             => serviceCollection
-                .AddSingleton<IScaffoldingModelFactory, SqliteScaffoldingModelFactory>()
                 .AddSingleton<IRelationalTypeMapper, SqliteTypeMapper>()
                 .AddSingleton<IDatabaseModelFactory, SqliteDatabaseModelFactory>()
                 .AddSingleton<IRelationalAnnotationProvider, SqliteAnnotationProvider>();

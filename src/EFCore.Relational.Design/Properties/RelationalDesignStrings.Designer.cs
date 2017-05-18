@@ -41,38 +41,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
             => GetString("MissingUseProviderMethodNameAnnotation");
 
         /// <summary>
-        ///     The following file(s) already exist in directory {outputDirectoryName}: {existingFiles}. Use the Force flag to overwrite these files.
-        /// </summary>
-        public static string ExistingFiles([CanBeNull] object outputDirectoryName, [CanBeNull] object existingFiles)
-            => string.Format(
-                GetString("ExistingFiles", nameof(outputDirectoryName), nameof(existingFiles)),
-                outputDirectoryName, existingFiles);
-
-        /// <summary>
-        ///     Found a column on index {indexName} on table {tableName} with an empty or null name. Not including column in index.
-        /// </summary>
-        public static readonly EventDefinition<string, string> LogColumnNameEmptyOnIndex
-            = new EventDefinition<string, string>(
-                RelationalDesignEventId.IndexColumnNotNamedWarning,
-                LogLevel.Warning,
-                LoggerMessage.Define<string, string>(
-                    LogLevel.Warning,
-                    RelationalDesignEventId.IndexColumnNotNamedWarning,
-                    _resourceManager.GetString("LogColumnNameEmptyOnIndex")));
-
-        /// <summary>
-        ///     For foreign key with identity {id} on table {tableName}, unable to find the column called {principalColumnName} on the foreign key's principal table, {principaltableName}. Skipping foreign key.
-        /// </summary>
-        public static readonly EventDefinition<string, string, string, string> LogPrincipalColumnNotFound
-            = new EventDefinition<string, string, string, string>(
-                RelationalDesignEventId.ForeignKeyPrincipalColumnMissingWarning,
-                LogLevel.Warning,
-                LoggerMessage.Define<string, string, string, string>(
-                    LogLevel.Warning,
-                    RelationalDesignEventId.ForeignKeyPrincipalColumnMissingWarning,
-                    _resourceManager.GetString("LogPrincipalColumnNotFound")));
-
-        /// <summary>
         ///     Could not find type mapping for column '{columnName}' with data type '{dateType}'. Skipping column.
         /// </summary>
         public static readonly EventDefinition<string, string> LogCannotFindTypeMappingForColumn
@@ -95,18 +63,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     LogLevel.Warning,
                     RelationalDesignEventId.ForeignKeyReferencesMissingPrincipalKeyWarning,
                     _resourceManager.GetString("LogForeignKeyScaffoldErrorPrincipalKeyNotFound")));
-
-        /// <summary>
-        ///     Could not scaffold the foreign key '{foreignKeyName}'. The referenced table could not be found. This most likely occurred because the referenced table was excluded from scaffolding.
-        /// </summary>
-        public static readonly EventDefinition<string> LogForeignKeyScaffoldErrorPrincipalTableNotFound
-            = new EventDefinition<string>(
-                RelationalDesignEventId.ForeignKeyReferencesMissingTableWarning,
-                LogLevel.Warning,
-                LoggerMessage.Define<string>(
-                    LogLevel.Warning,
-                    RelationalDesignEventId.ForeignKeyReferencesMissingTableWarning,
-                    _resourceManager.GetString("LogForeignKeyScaffoldErrorPrincipalTableNotFound")));
 
         /// <summary>
         ///     Could not scaffold the foreign key '{foreignKeyName}'. The referenced table '{principaltableName}' could not be scaffolded.
@@ -157,30 +113,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     _resourceManager.GetString("LogMissingPrimaryKey")));
 
         /// <summary>
-        ///     Found table with name: {name}.
-        /// </summary>
-        public static readonly EventDefinition<string> LogFoundTable
-            = new EventDefinition<string>(
-                RelationalDesignEventId.TableFound,
-                LogLevel.Debug,
-                LoggerMessage.Define<string>(
-                    LogLevel.Debug,
-                    RelationalDesignEventId.TableFound,
-                    _resourceManager.GetString("LogFoundTable")));
-
-        /// <summary>
-        ///     Table {tableName} is not included in the selection set. Skipping.
-        /// </summary>
-        public static readonly EventDefinition<string> LogTableNotInSelectionSet
-            = new EventDefinition<string>(
-                RelationalDesignEventId.TableSkipped,
-                LogLevel.Debug,
-                LoggerMessage.Define<string>(
-                    LogLevel.Debug,
-                    RelationalDesignEventId.TableSkipped,
-                    _resourceManager.GetString("LogTableNotInSelectionSet")));
-
-        /// <summary>
         ///     Column {columnName} belongs to table {tableName} which is not included in the selection set. Skipping.
         /// </summary>
         public static readonly EventDefinition<string, string> LogColumnNotInSelectionSet
@@ -191,30 +123,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     LogLevel.Debug,
                     RelationalDesignEventId.ColumnSkipped,
                     _resourceManager.GetString("LogColumnNotInSelectionSet")));
-
-        /// <summary>
-        ///     Found index with name: {indexName}, table: {tableName}, is unique: {isUnique}.
-        /// </summary>
-        public static readonly EventDefinition<string, string, bool?> LogFoundIndex
-            = new EventDefinition<string, string, bool?>(
-                RelationalDesignEventId.IndexFound,
-                LogLevel.Debug,
-                LoggerMessage.Define<string, string, bool?>(
-                    LogLevel.Debug,
-                    RelationalDesignEventId.IndexFound,
-                    _resourceManager.GetString("LogFoundIndex")));
-
-        /// <summary>
-        ///     Found index column on index {indexName} on table {tableName}, column name: {columnName}, ordinal: {ordinal}.
-        /// </summary>
-        public static readonly EventDefinition<string, string, string, int?> LogFoundIndexColumn
-            = new EventDefinition<string, string, string, int?>(
-                RelationalDesignEventId.IndexColumnFound,
-                LogLevel.Debug,
-                LoggerMessage.Define<string, string, string, int?>(
-                    LogLevel.Debug,
-                    RelationalDesignEventId.IndexColumnFound,
-                    _resourceManager.GetString("LogFoundIndexColumn")));
 
         /// <summary>
         ///     Index column {columnName} belongs to index {indexName} on table {tableName} which is not included in the selection set. Skipping.
@@ -404,6 +312,14 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     LogLevel.Warning,
                     RelationalDesignEventId.ForeignKeyPrincipalEndContainsNullableColumnsWarning,
                     _resourceManager.GetString("LogForeignKeyPrincipalEndContainsNullableColumns")));
+
+        /// <summary>
+        ///     The following file(s) already exist in directory {outputDirectoryName}: {existingFiles}. Use the Force flag to overwrite these files.
+        /// </summary>
+        public static string ExistingFiles([CanBeNull] object outputDirectoryName, [CanBeNull] object existingFiles)
+            => string.Format(
+                GetString("ExistingFiles", nameof(outputDirectoryName), nameof(existingFiles)),
+                outputDirectoryName, existingFiles);
 
         private static string GetString(string name, params string[] formatterNames)
         {

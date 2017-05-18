@@ -236,29 +236,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public static void ForeignKeyReferencesMissingTableWarning(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string foreignKeyName)
-        {
-            var definition = RelationalDesignStrings.LogForeignKeyScaffoldErrorPrincipalTableNotFound;
-
-            definition.Log(diagnostics, foreignKeyName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        ForeignKeyName = foreignKeyName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public static void ForeignKeyReferencesNotMappedTableWarning(
             [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
             [CanBeNull] string foreignKeyName,
@@ -426,52 +403,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public static void TableFound(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string tableName)
-        {
-            var definition = RelationalDesignStrings.LogFoundTable;
-
-            definition.Log(diagnostics, tableName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        TableName = tableName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public static void TableSkipped(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string tableName)
-        {
-            var definition = RelationalDesignStrings.LogTableNotInSelectionSet;
-
-            definition.Log(diagnostics, tableName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        TableName = tableName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public static void ColumnSkipped(
             [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
             [CanBeNull] string tableName,
@@ -489,37 +420,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     {
                         TableName = tableName,
                         ColumnName = columnName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public static void IndexColumnFound(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string tableName,
-            [CanBeNull] string indexName,
-            bool? unique,
-            [CanBeNull] string columnName,
-            int? ordinal)
-        {
-            var definition = RelationalDesignStrings.LogFoundIndexColumn;
-
-            definition.Log(diagnostics, indexName, tableName, columnName, ordinal);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        TableName = tableName,
-                        IndexName = indexName,
-                        Unique = unique,
-                        ColumnName = columnName,
-                        Ordinal = ordinal
                     });
             }
         }
@@ -607,31 +507,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
             [CanBeNull] string tableName)
         {
             var definition = RelationalDesignStrings.LogUnableToFindTableForIndex;
-
-            definition.Log(diagnostics, indexName, tableName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        IndexName = indexName,
-                        TableName = tableName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public static void IndexColumnNotNamedWarning(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string indexName,
-            [CanBeNull] string tableName)
-        {
-            var definition = RelationalDesignStrings.LogColumnNameEmptyOnIndex;
 
             definition.Log(diagnostics, indexName, tableName);
 
@@ -745,62 +620,6 @@ namespace Microsoft.EntityFrameworkCore.Internal
                     {
                         ForeignKeyName = foreignKeyName,
                         TableName = tableName
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public static void IndexFound(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string indexName,
-            [CanBeNull] string tableName,
-            bool? unique)
-        {
-            var definition = RelationalDesignStrings.LogFoundIndex;
-
-            definition.Log(diagnostics, indexName, tableName, unique);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        IndexName = indexName,
-                        TableName = tableName,
-                        Unique = unique
-                    });
-            }
-        }
-
-        /// <summary>
-        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public static void ForeignKeyPrincipalColumnMissingWarning(
-            [NotNull] this IDiagnosticsLogger<LoggerCategory.Scaffolding> diagnostics,
-            [CanBeNull] string foreignKeyName,
-            [CanBeNull] string tableName,
-            [CanBeNull] string principalColumnName,
-            [CanBeNull] string principalTableName)
-        {
-            var definition = RelationalDesignStrings.LogPrincipalColumnNotFound;
-
-            definition.Log(diagnostics, foreignKeyName, tableName, principalColumnName, principalTableName);
-
-            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
-            {
-                diagnostics.DiagnosticSource.Write(
-                    definition.EventId.Name,
-                    new
-                    {
-                        ForeignKeyName = foreignKeyName,
-                        TableName = tableName,
-                        PrincipalColumnName = principalColumnName,
-                        PrincipalTableName = principalTableName
                     });
             }
         }

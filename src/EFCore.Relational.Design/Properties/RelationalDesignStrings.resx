@@ -126,17 +126,6 @@
   <data name="MissingUseProviderMethodNameAnnotation" xml:space="preserve">
     <value>Cannot scaffold the connection string. The "UseProviderMethodName" is missing from the scaffolding model.</value>
   </data>
-  <data name="ExistingFiles" xml:space="preserve">
-    <value>The following file(s) already exist in directory {outputDirectoryName}: {existingFiles}. Use the Force flag to overwrite these files.</value>
-  </data>
-  <data name="LogColumnNameEmptyOnIndex" xml:space="preserve">
-    <value>Found a column on index {indexName} on table {tableName} with an empty or null name. Not including column in index.</value>
-    <comment>Warning RelationalDesignEventId.IndexColumnNotNamedWarning string string</comment>
-  </data>
-  <data name="LogPrincipalColumnNotFound" xml:space="preserve">
-    <value>For foreign key with identity {id} on table {tableName}, unable to find the column called {principalColumnName} on the foreign key's principal table, {principaltableName}. Skipping foreign key.</value>
-    <comment>Warning RelationalDesignEventId.ForeignKeyPrincipalColumnMissingWarning string string string string</comment>
-  </data>
   <data name="LogCannotFindTypeMappingForColumn" xml:space="preserve">
     <value>Could not find type mapping for column '{columnName}' with data type '{dateType}'. Skipping column.</value>
     <comment>Warning RelationalDesignEventId.ColumnTypeNotMappedWarning string string</comment>
@@ -144,10 +133,6 @@
   <data name="LogForeignKeyScaffoldErrorPrincipalKeyNotFound" xml:space="preserve">
     <value>Could not scaffold the foreign key '{foreignKeyName}'. A key for '{columnsList}' was not found in the principal entity type '{principalEntityType}'.</value>
     <comment>Warning RelationalDesignEventId.ForeignKeyReferencesMissingPrincipalKeyWarning string string string</comment>
-  </data>
-  <data name="LogForeignKeyScaffoldErrorPrincipalTableNotFound" xml:space="preserve">
-    <value>Could not scaffold the foreign key '{foreignKeyName}'. The referenced table could not be found. This most likely occurred because the referenced table was excluded from scaffolding.</value>
-    <comment>Warning RelationalDesignEventId.ForeignKeyReferencesMissingTableWarning string</comment>
   </data>
   <data name="LogForeignKeyScaffoldErrorPrincipalTableScaffoldingError" xml:space="preserve">
     <value>Could not scaffold the foreign key '{foreignKeyName}'. The referenced table '{principaltableName}' could not be scaffolded.</value>
@@ -165,25 +150,9 @@
     <value>Unable to identify the primary key for table '{tableName}'.</value>
     <comment>Warning RelationalDesignEventId.MissingPrimaryKeyWarning string</comment>
   </data>
-  <data name="LogFoundTable" xml:space="preserve">
-    <value>Found table with name: {name}.</value>
-    <comment>Debug RelationalDesignEventId.TableFound string</comment>
-  </data>
-  <data name="LogTableNotInSelectionSet" xml:space="preserve">
-    <value>Table {tableName} is not included in the selection set. Skipping.</value>
-    <comment>Debug RelationalDesignEventId.TableSkipped string</comment>
-  </data>
   <data name="LogColumnNotInSelectionSet" xml:space="preserve">
     <value>Column {columnName} belongs to table {tableName} which is not included in the selection set. Skipping.</value>
     <comment>Debug RelationalDesignEventId.ColumnSkipped string string</comment>
-  </data>
-  <data name="LogFoundIndex" xml:space="preserve">
-    <value>Found index with name: {indexName}, table: {tableName}, is unique: {isUnique}.</value>
-    <comment>Debug RelationalDesignEventId.IndexFound string string bool?</comment>
-  </data>
-  <data name="LogFoundIndexColumn" xml:space="preserve">
-    <value>Found index column on index {indexName} on table {tableName}, column name: {columnName}, ordinal: {ordinal}.</value>
-    <comment>Debug RelationalDesignEventId.IndexColumnFound string string string int?</comment>
   </data>
   <data name="LogIndexColumnNotInSelectionSet" xml:space="preserve">
     <value>Index column {columnName} belongs to index {indexName} on table {tableName} which is not included in the selection set. Skipping.</value>
@@ -248,5 +217,8 @@
   <data name="LogForeignKeyPrincipalEndContainsNullableColumns" xml:space="preserve">
     <value>The principal end of the foreign key '{foreignKeyName}' is supported by the unique index '{indexName}' and contains the following nullable columns '{columnNames}'. Entity Framework requires the properties representing those columns to be non-nullable.</value>
     <comment>Warning RelationalDesignEventId.ForeignKeyPrincipalEndContainsNullableColumnsWarning string string string</comment>
+  </data>
+  <data name="ExistingFiles" xml:space="preserve">
+    <value>The following file(s) already exist in directory {outputDirectoryName}: {existingFiles}. Use the Force flag to overwrite these files.</value>
   </data>
 </root>

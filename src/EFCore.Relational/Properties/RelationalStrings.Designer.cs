@@ -726,6 +726,90 @@ namespace Microsoft.EntityFrameworkCore.Internal
                 GetString("UnsupportedPropertyType", nameof(entity), nameof(property), nameof(clrType)),
                 entity, property, clrType);
 
+        /// <summary>
+        ///     Found a column on index {indexName} on table {tableName} with an empty or null name. Not including column in index.
+        /// </summary>
+        public static readonly EventDefinition<string, string> LogColumnNameEmptyOnIndex
+            = new EventDefinition<string, string>(
+                RelationalEventId.IndexColumnNotNamedWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.IndexColumnNotNamedWarning,
+                    _resourceManager.GetString("LogColumnNameEmptyOnIndex")));
+
+        /// <summary>
+        ///     Could not scaffold the foreign key '{foreignKeyName}'. The referenced table could not be found. This most likely occurred because the referenced table was excluded from scaffolding.
+        /// </summary>
+        public static readonly EventDefinition<string> LogForeignKeyScaffoldErrorPrincipalTableNotFound
+            = new EventDefinition<string>(
+                RelationalEventId.ForeignKeyReferencesMissingTableWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyReferencesMissingTableWarning,
+                    _resourceManager.GetString("LogForeignKeyScaffoldErrorPrincipalTableNotFound")));
+
+        /// <summary>
+        ///     Found index with name: {indexName}, table: {tableName}, is unique: {isUnique}.
+        /// </summary>
+        public static readonly EventDefinition<string, string, bool?> LogFoundIndex
+            = new EventDefinition<string, string, bool?>(
+                RelationalEventId.IndexFound,
+                LogLevel.Debug,
+                LoggerMessage.Define<string, string, bool?>(
+                    LogLevel.Debug,
+                    RelationalEventId.IndexFound,
+                    _resourceManager.GetString("LogFoundIndex")));
+
+        /// <summary>
+        ///     Found index column on index {indexName} on table {tableName}, column name: {columnName}, ordinal: {ordinal}.
+        /// </summary>
+        public static readonly EventDefinition<string, string, string, int?> LogFoundIndexColumn
+            = new EventDefinition<string, string, string, int?>(
+                RelationalEventId.IndexColumnFound,
+                LogLevel.Debug,
+                LoggerMessage.Define<string, string, string, int?>(
+                    LogLevel.Debug,
+                    RelationalEventId.IndexColumnFound,
+                    _resourceManager.GetString("LogFoundIndexColumn")));
+
+        /// <summary>
+        ///     Found table with name: {name}.
+        /// </summary>
+        public static readonly EventDefinition<string> LogFoundTable
+            = new EventDefinition<string>(
+                RelationalEventId.TableFound,
+                LogLevel.Debug,
+                LoggerMessage.Define<string>(
+                    LogLevel.Debug,
+                    RelationalEventId.TableFound,
+                    _resourceManager.GetString("LogFoundTable")));
+
+        /// <summary>
+        ///     For foreign key with identity {id} on table {tableName}, unable to find the column called {principalColumnName} on the foreign key's principal table, {principaltableName}. Skipping foreign key.
+        /// </summary>
+        public static readonly EventDefinition<string, string, string, string> LogPrincipalColumnNotFound
+            = new EventDefinition<string, string, string, string>(
+                RelationalEventId.ForeignKeyPrincipalColumnMissingWarning,
+                LogLevel.Warning,
+                LoggerMessage.Define<string, string, string, string>(
+                    LogLevel.Warning,
+                    RelationalEventId.ForeignKeyPrincipalColumnMissingWarning,
+                    _resourceManager.GetString("LogPrincipalColumnNotFound")));
+
+        /// <summary>
+        ///     Table {tableName} is not included in the selection set. Skipping.
+        /// </summary>
+        public static readonly EventDefinition<string> LogTableNotInSelectionSet
+            = new EventDefinition<string>(
+                RelationalEventId.TableSkipped,
+                LogLevel.Debug,
+                LoggerMessage.Define<string>(
+                    LogLevel.Debug,
+                    RelationalEventId.TableSkipped,
+                    _resourceManager.GetString("LogTableNotInSelectionSet")));
+
         private static string GetString(string name, params string[] formatterNames)
         {
             var value = _resourceManager.GetString(name);
