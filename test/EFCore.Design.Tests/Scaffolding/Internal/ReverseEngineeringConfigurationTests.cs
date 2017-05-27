@@ -4,6 +4,7 @@
 using System;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.ReverseEngineering;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Xunit;
 
@@ -48,6 +49,11 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
         public class FakeScaffoldingHelper : IScaffoldingHelper
         {
             public string GetProviderOptionsBuilder(string connectionString)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TypeScaffoldingInfo GetTypeScaffoldingInfo(ColumnModel columnModel)
             {
                 throw new NotImplementedException();
             }
