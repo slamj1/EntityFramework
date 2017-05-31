@@ -59,6 +59,31 @@ namespace Microsoft.EntityFrameworkCore.Internal
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        public static void DuplicateDietInstanceWarning(
+            [NotNull] this IDiagnosticsLogger<DbLoggerCategory.Update> diagnostics,
+            [NotNull] string diet1,
+            [NotNull] string diet2)
+        {
+            var definition = CoreStrings.LogDuplicateDietInstance;
+
+            definition.Log(diagnostics, diet1, diet2);
+
+            if (diagnostics.DiagnosticSource.IsEnabled(definition.EventId.Name))
+            {
+                diagnostics.DiagnosticSource.Write(
+                    definition.EventId.Name,
+                    new
+                    {
+                        Diet1 = diet1,
+                        Diet2 = diet2
+                    });
+            }
+        }
+
+        /// <summary>
+        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
         public static void QueryIterationFailed(
             [NotNull] this IDiagnosticsLogger<DbLoggerCategory.Query> diagnostics,
             [NotNull] Type contextType,
